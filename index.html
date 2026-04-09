@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Waff-Wich Food Website</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fffaf5;
+      color: #2b1d12;
+    }
+    header {
+      background: linear-gradient(135deg, #5b2c06, #d97706);
+      color: white;
+      padding: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    nav .brand {
+      font-size: 28px;
+      font-weight: bold;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+      font-weight: 600;
+    }
+    .hero {
+      padding: 60px 20px;
+      text-align: center;
+      background: #fde9d1;
+    }
+    .hero h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+    .hero p {
+      max-width: 800px;
+      margin: 0 auto 20px;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+    .btn {
+      display: inline-block;
+      background: #b45309;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+    .section {
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .section h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      color: #7c2d12;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      border: 1px solid #f4d6b7;
+    }
+    .card h3 {
+      margin-top: 0;
+      color: #92400e;
+    }
+    .price {
+      font-weight: bold;
+      color: #b45309;
+      margin-top: 10px;
+      font-size: 18px;
+    }
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .feature-list {
+      padding-left: 20px;
+      line-height: 1.8;
+    }
+    .admin-box, .track-box, .payment-box {
+      background: #fff;
+      border: 1px solid #ead3bb;
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 14px;
+      border-radius: 8px;
+      border: 1px solid #d6bfa6;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .stat {
+      background: #fff7ed;
+      padding: 16px;
+      border-radius: 12px;
+      text-align: center;
+      border: 1px solid #fed7aa;
+    }
+    .stat strong {
+      display: block;
+      font-size: 28px;
+      color: #9a3412;
+      margin-top: 6px;
+    }
+    .order-status {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    .pill {
+      padding: 8px 12px;
+      background: #ffedd5;
+      border-radius: 999px;
+      border: 1px solid #fdba74;
+      font-size: 14px;
+    }
+    footer {
+      text-align: center;
+      background: #4a2511;
+      color: white;
+      padding: 20px;
+      margin-top: 40px;
+    }
+    .small {
+      font-size: 14px;
+      color: #6b4f3b;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="brand">WAFF-WICH</div>
+      <div>
+        <a href="#menu">Menu</a>
+        <a href="#admin">Admin</a>
+        <a href="#track">Track Order</a>
+        <a href="#payments">Payments</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Delicious Waffles, Ice Creams & Treats</h1>
+    <p>Upgrade your current simple page into a complete food ordering website with menu display, admin login, user count, order tracking, and payment status management.</p>
+    <a href="#menu" class="btn">Explore Menu</a>
+  </section>
+
+  <section class="section" id="menu">
+    <h2>Featured Menu</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Original Classics</h3>
+        <p>Honey Butter / Maple Butter</p>
+        <div class="price">₹100</div>
+      </div>
+      <div class="card">
+        <h3>Almond Cocoa Butter</h3>
+        <p>Classic premium waff-wich</p>
+        <div class="price">₹180</div>
+      </div>
+      <div class="card">
+        <h3>KitKat Affair</h3>
+        <p>Gourmet waffle special</p>
+        <div class="price">₹230</div>
+      </div>
+      <div class="card">
+        <h3>Nutella Overload</h3>
+        <p>Rich choco-loaded gourmet waffle</p>
+        <div class="price">₹270</div>
+      </div>
+      <div class="card">
+        <h3>Mango Cheesecake</h3>
+        <p>Cheesecake waff-wich</p>
+        <div class="price">₹160</div>
+      </div>
+      <div class="card">
+        <h3>Biscoff Cheesecake</h3>
+        <p>Cheesecake waff-wich</p>
+        <div class="price">₹190</div>
+      </div>
+      <div class="card">
+        <h3>Rocky Road</h3>
+        <p>Ice Cream Waff-wich</p>
+        <div class="price">₹200</div>
+      </div>
+      <div class="card">
+        <h3>Triple Cookie</h3>
+        <p>Ice cream waff-wich with cookie flavor</p>
+        <div class="price">₹210</div>
+      </div>
+      <div class="card">
+        <h3>KitKat Shake</h3>
+        <p>Signature beverage shake</p>
+        <div class="price">₹180</div>
+      </div>
+      <div class="card">
+        <h3>Nutella Shake</h3>
+        <p>Chocolate beverage</p>
+        <div class="price">₹170</div>
+      </div>
+      <div class="card">
+        <h3>Mini Waff-wich Box</h3>
+        <p>Assorted box of 4 / 6</p>
+        <div class="price">₹350 / ₹490</div>
+      </div>
+      <div class="card">
+        <h3>Mini Treats Combo</h3>
+        <p>Mini waff-wich box + chocolates</p>
+        <div class="price">₹585</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Website Features</h2>
+    <div class="two-col">
+      <div class="card">
+        <h3>Customer Side</h3>
+        <ul class="feature-list">
+          <li>Browse food menu by category</li>
+          <li>Add items to cart</li>
+          <li>Place food orders online</li>
+          <li>Track order status live</li>
+          <li>Check payment status</li>
+          <li>View offers and value deals</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Admin Side</h3>
+        <ul class="feature-list">
+          <li>Admin login with username and password</li>
+          <li>Manage menu items and prices</li>
+          <li>See total users</li>
+          <li>Track active orders</li>
+          <li>Update order stages</li>
+          <li>Check paid and unpaid payments</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="admin">
+    <h2>Admin Login Demo</h2>
+    <div class="two-col">
+      <div class="admin-box">
+        <label for="adminUser">Admin Username</label>
+        <input id="adminUser" type="text" placeholder="Enter admin username" />
+        <label for="adminPass">Admin Password</label>
+        <input id="adminPass" type="password" placeholder="Enter admin password" />
+        <button class="btn" onclick="adminLogin()">Login</button>
+        <p id="loginMsg" class="small"></p>
+      </div>
+      <div class="admin-box">
+        <h3>Admin Dashboard</h3>
+        <div class="stats">
+          <div class="stat">Total Users<strong id="usersCount">128</strong></div>
+          <div class="stat">Total Orders<strong id="ordersCount">46</strong></div>
+          <div class="stat">Paid Orders<strong id="paidCount">39</strong></div>
+          <div class="stat">Pending Payments<strong id="pendingCount">7</strong></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="track">
+    <h2>Track Your Order</h2>
+    <div class="track-box">
+      <label for="orderId">Order Number</label>
+      <input id="orderId" type="text" placeholder="Enter your order ID, e.g. ORD1024" />
+      <button class="btn" onclick="trackOrder()">Track Order</button>
+      <p id="trackMsg" style="margin-top: 14px; font-weight: bold;"></p>
+      <div class="order-status">
+        <span class="pill">Order Received</span>
+        <span class="pill">Preparing</span>
+        <span class="pill">Out for Delivery</span>
+        <span class="pill">Delivered</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="payments">
+    <h2>Payment Status</h2>
+    <div class="two-col">
+      <div class="payment-box">
+        <h3>Customer Payment</h3>
+        <label for="paymentOrder">Order Number</label>
+        <input id="paymentOrder" type="text" placeholder="Enter order number" />
+        <label for="paymentMethod">Payment Method</label>
+        <select id="paymentMethod">
+          <option>UPI</option>
+          <option>Card</option>
+          <option>Cash on Delivery</option>
+          <option>Net Banking</option>
+        </select>
+        <button class="btn" onclick="checkPayment()">Check Payment</button>
+        <p id="paymentMsg" class="small"></p>
+      </div>
+      <div class="payment-box">
+        <h3>Offers & Deals</h3>
+        <ul class="feature-list">
+          <li>Happy Hours: 2 waffles at ₹250</li>
+          <li>3 waffles at ₹350</li>
+          <li>4 waffles at ₹450</li>
+          <li>Treats for Two combo at ₹400</li>
+          <li>Best of the Best combo at ₹650</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Waff-Wich Food Website Demo | Menu, Admin Login, Order Tracking & Payments</p>
+  </footer>
+
+  <script>
+    function adminLogin() {
+      const user = document.getElementById('adminUser').value;
+      const pass = document.getElementById('adminPass').value;
+      const msg = document.getElementById('loginMsg');
+
+      if (user === 'admin' && pass === '1234') {
+        msg.textContent = 'Login successful. Admin dashboard is ready.';
+        msg.style.color = 'green';
+      } else {
+        msg.textContent = 'Invalid admin username or password.';
+        msg.style.color = 'red';
+      }
+    }
+
+    function trackOrder() {
+      const orderId = document.getElementById('orderId').value.trim();
+      const msg = document.getElementById('trackMsg');
+
+      if (!orderId) {
+        msg.textContent = 'Please enter an order number.';
+        msg.style.color = 'red';
+        return;
+      }
+
+      msg.textContent = 'Order ' + orderId + ' is currently: Preparing';
+      msg.style.color = '#92400e';
+    }
+
+    function checkPayment() {
+      const order = document.getElementById('paymentOrder').value.trim();
+      const method = document.getElementById('paymentMethod').value;
+      const msg = document.getElementById('paymentMsg');
+
+      if (!order) {
+        msg.textContent = 'Please enter order number to check payment status.';
+        msg.style.color = 'red';
+        return;
+      }
+
+      msg.textContent = 'Order ' + order + ' payment via ' + method + ' is marked as Paid.';
+      msg.style.color = 'green';
+    }
+  </script>
+</body>
+</html>
