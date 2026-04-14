@@ -2,7 +2,9 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "nikhilabba12/waff-wich:latest"
+        IMAGE_NAME = "nikhilabba12/waff-wich"
+        IMAGE_TAG = "latest"
+        FULL_IMAGE = "${IMAGE_NAME}:${IMAGE_TAG}"
     }
 
     stages {
@@ -12,9 +14,24 @@ pipeline {
             }
         }
 
+        stage('Verify Files') {
+            steps {
+                bat 'if not exist package.json exit /b 1'
+                bat 'if not exist server.js exit /b 1'
+                bat 'if not exist index.html exit /b 1'
+                bat 'if not exist Dockerfile exit /b 1'
+            }
+        }
+
+        stage('Install Node Dependencies') {
+            steps {
+                bat 'npm install'
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t %IMAGE_NAME% .'
+                bat 'docker build -t %FULL_IMAGE% .'
             }
         }
 
@@ -28,7 +45,7 @@ pipeline {
 
         stage('Push Docker Image') {
             steps {
-                bat 'docker push %IMAGE_NAME%'
+                bat 'docker push %FULL_IMAGE%'
             }
         }
     }

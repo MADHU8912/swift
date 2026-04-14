@@ -3,400 +3,1146 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Waff-Wich Food Website</title>
+  <title>Waff-Wich | Complete Food Ordering Website</title>
   <style>
+    :root {
+      --bg: #fff8f2;
+      --card: #ffffff;
+      --text: #2b1d12;
+      --muted: #7a5a42;
+      --primary: #b45309;
+      --primary-dark: #7c2d12;
+      --secondary: #fde7cf;
+      --success: #166534;
+      --danger: #b91c1c;
+      --warning: #92400e;
+      --border: #f1d3b3;
+      --shadow: 0 12px 30px rgba(0,0,0,0.08);
+      --radius: 18px;
+    }
+
     * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #fffaf5;
-      color: #2b1d12;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #fffaf5 0%, #fff4e8 100%);
+      color: var(--text);
     }
+
+    img { max-width: 100%; display: block; }
+
+    a { text-decoration: none; color: inherit; }
+
+    .container {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
     header {
-      background: linear-gradient(135deg, #5b2c06, #d97706);
-      color: white;
-      padding: 20px;
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 100;
+      background: rgba(91,44,6,0.94);
+      backdrop-filter: blur(10px);
+      color: #fff;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
     }
-    nav {
+
+    .nav {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 0;
       flex-wrap: wrap;
-      gap: 12px;
     }
-    nav .brand {
-      font-size: 28px;
-      font-weight: bold;
+
+    .brand {
+      font-size: 1.7rem;
+      font-weight: 800;
+      letter-spacing: 1px;
     }
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 10px;
-      font-weight: 600;
-    }
-    .hero {
-      padding: 60px 20px;
-      text-align: center;
-      background: #fde9d1;
-    }
-    .hero h1 {
-      font-size: 42px;
-      margin-bottom: 10px;
-    }
-    .hero p {
-      max-width: 800px;
-      margin: 0 auto 20px;
-      font-size: 18px;
-      line-height: 1.6;
-    }
-    .btn {
-      display: inline-block;
-      background: #b45309;
-      color: white;
-      padding: 12px 18px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-    }
-    .section {
-      padding: 40px 20px;
-      max-width: 1200px;
-      margin: auto;
-    }
-    .section h2 {
-      font-size: 32px;
-      margin-bottom: 20px;
-      color: #7c2d12;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 20px;
-    }
-    .card {
-      background: white;
-      border-radius: 14px;
-      padding: 18px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-      border: 1px solid #f4d6b7;
-    }
-    .card h3 {
-      margin-top: 0;
-      color: #92400e;
-    }
-    .price {
-      font-weight: bold;
-      color: #b45309;
-      margin-top: 10px;
-      font-size: 18px;
-    }
-    .two-col {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 24px;
-    }
-    .feature-list {
-      padding-left: 20px;
-      line-height: 1.8;
-    }
-    .admin-box, .track-box, .payment-box {
-      background: #fff;
-      border: 1px solid #ead3bb;
-      border-radius: 16px;
-      padding: 22px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-    }
-    label {
-      display: block;
-      margin-bottom: 6px;
-      font-weight: bold;
-    }
-    input, select {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 14px;
-      border-radius: 8px;
-      border: 1px solid #d6bfa6;
-    }
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+
+    .nav-links {
+      display: flex;
       gap: 14px;
+      flex-wrap: wrap;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a {
+      padding: 8px 10px;
+      border-radius: 10px;
+    }
+
+    .nav-links a:hover { background: rgba(255,255,255,0.12); }
+
+    .hero {
+      padding: 48px 0 22px;
+    }
+
+    .hero-wrap {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .hero-card,
+    .panel,
+    .menu-card,
+    .stat,
+    .cart-item,
+    .order-card,
+    .offer-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      padding: 34px;
+      background: linear-gradient(135deg, #fff8ef 0%, #ffe3bf 100%);
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1.05;
+      color: var(--primary-dark);
+    }
+
+    .hero p {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 1rem;
+      margin-bottom: 18px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
       margin-top: 18px;
     }
-    .stat {
-      background: #fff7ed;
-      padding: 16px;
+
+    .btn {
+      border: none;
+      cursor: pointer;
       border-radius: 12px;
-      text-align: center;
-      border: 1px solid #fed7aa;
+      padding: 12px 16px;
+      font-weight: 700;
+      font-size: 0.96rem;
+      transition: transform 0.2s ease, opacity 0.2s ease;
     }
-    .stat strong {
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--primary-dark);
+      border: 1px solid #e7c8ab;
+    }
+
+    .hero-side {
+      padding: 22px;
+      display: grid;
+      gap: 14px;
+      background: linear-gradient(180deg, #5b2c06 0%, #8f4610 100%);
+      color: white;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .mini-card {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 14px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .mini-card strong {
       display: block;
-      font-size: 28px;
-      color: #9a3412;
+      font-size: 1.55rem;
       margin-top: 6px;
     }
-    .order-status {
+
+    section {
+      padding: 18px 0 12px;
+    }
+
+    .section-title {
       display: flex;
-      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
       flex-wrap: wrap;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 1.95rem;
+      color: var(--primary-dark);
+    }
+
+    .section-title p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .toolbar input,
+    .toolbar select,
+    .panel input,
+    .panel select,
+    .panel textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid #d8b99b;
+      outline: none;
+      font-size: 0.96rem;
+      background: white;
+    }
+
+    .toolbar .field,
+    .field {
+      flex: 1 1 220px;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 18px;
+    }
+
+    .menu-card {
+      overflow: hidden;
+    }
+
+    .food-image {
+      aspect-ratio: 4 / 3;
+      display: grid;
+      place-items: center;
+      font-size: 3.2rem;
+      background: radial-gradient(circle at top, #fff3df, #f6c992);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .menu-body {
+      padding: 16px;
+    }
+
+    .category-pill,
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      border: 1px solid #f2c28f;
+      background: #fff1df;
+      color: var(--warning);
+    }
+
+    .menu-card h3,
+    .panel h3,
+    .offer-card h3,
+    .order-card h3 {
+      margin: 4px 0 8px;
+      color: var(--primary-dark);
+    }
+
+    .muted {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .price {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 22px;
+    }
+
+    .panel {
+      padding: 20px;
+    }
+
+    .cart-list,
+    .order-list,
+    .menu-admin-list {
+      display: grid;
+      gap: 12px;
       margin-top: 12px;
     }
-    .pill {
-      padding: 8px 12px;
-      background: #ffedd5;
-      border-radius: 999px;
-      border: 1px solid #fdba74;
-      font-size: 14px;
+
+    .cart-item,
+    .order-card,
+    .menu-admin-item {
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fffdfb;
     }
-    footer {
+
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .qty-controls {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .qty-btn,
+    .icon-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      border: 1px solid #e7c8ab;
+      background: white;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .summary-grid,
+    .admin-stats,
+    .feature-grid,
+    .offers-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .summary-grid,
+    .admin-stats,
+    .feature-grid,
+    .offers-grid {
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    }
+
+    .stat {
+      padding: 18px;
       text-align: center;
+      background: linear-gradient(180deg, #fffefc, #fff5eb);
+    }
+
+    .stat small {
+      color: var(--muted);
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .stat strong {
+      font-size: 1.8rem;
+      color: var(--primary-dark);
+    }
+
+    .feature-card,
+    .offer-card {
+      padding: 18px;
+    }
+
+    .offer-card {
+      background: linear-gradient(180deg, #fffaf4, #ffe9cd);
+    }
+
+    .status-track {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .status-step {
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: #fff1df;
+      border: 1px solid #f0c799;
+      font-size: 0.84rem;
+      font-weight: 700;
+    }
+
+    .status-step.active {
+      background: #f59e0b;
+      color: white;
+      border-color: #f59e0b;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .message {
+      margin-top: 10px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-weight: 700;
+      display: none;
+    }
+
+    .message.success {
+      display: block;
+      background: #dcfce7;
+      color: var(--success);
+      border: 1px solid #86efac;
+    }
+
+    .message.error {
+      display: block;
+      background: #fee2e2;
+      color: var(--danger);
+      border: 1px solid #fca5a5;
+    }
+
+    .message.warn {
+      display: block;
+      background: #ffedd5;
+      color: var(--warning);
+      border: 1px solid #fdba74;
+    }
+
+    footer {
+      margin-top: 28px;
       background: #4a2511;
       color: white;
-      padding: 20px;
-      margin-top: 40px;
+      padding: 24px 0;
+      text-align: center;
     }
-    .small {
-      font-size: 14px;
-      color: #6b4f3b;
+
+    .footer-note {
+      color: #f8dcbc;
+      margin-top: 6px;
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero-wrap,
+      .split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero-card,
+      .hero-side,
+      .panel {
+        padding: 18px;
+      }
+
+      .hero h1 { font-size: 2.2rem; }
+      .section-title h2 { font-size: 1.6rem; }
     }
   </style>
 </head>
 <body>
   <header>
-    <nav>
+    <div class="container nav">
       <div class="brand">WAFF-WICH</div>
-      <div>
+      <nav class="nav-links">
         <a href="#menu">Menu</a>
+        <a href="#cart">Cart</a>
+        <a href="#orders">Orders</a>
+        <a href="#offers">Offers</a>
         <a href="#admin">Admin</a>
-        <a href="#track">Track Order</a>
-        <a href="#payments">Payments</a>
-      </div>
-    </nav>
+      </nav>
+    </div>
   </header>
 
-  <section class="hero">
-    <h1>Delicious Waffles, Ice Creams & Treats</h1>
-    <p>Upgrade your current simple page into a complete food ordering website with menu display, admin login, user count, order tracking, and payment status management.</p>
-    <a href="#menu" class="btn">Explore Menu</a>
-  </section>
+  <main>
+    <section class="hero">
+      <div class="container hero-wrap">
+        <div class="hero-card">
+          <div class="category-pill">Complete Rebuild</div>
+          <h1>Food ordering website with customer and admin flow</h1>
+          <p>
+            Browse food menu by category, add items to cart, place orders online, track live order status,
+            check payment status, view offers and value deals, and manage the full system from the admin side.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#menu">Browse Menu</a>
+            <a class="btn btn-secondary" href="#admin">Open Admin Demo</a>
+          </div>
+        </div>
 
-  <section class="section" id="menu">
-    <h2>Featured Menu</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>Original Classics</h3>
-        <p>Honey Butter / Maple Butter</p>
-        <div class="price">₹100</div>
-      </div>
-      <div class="card">
-        <h3>Almond Cocoa Butter</h3>
-        <p>Classic premium waff-wich</p>
-        <div class="price">₹180</div>
-      </div>
-      <div class="card">
-        <h3>KitKat Affair</h3>
-        <p>Gourmet waffle special</p>
-        <div class="price">₹230</div>
-      </div>
-      <div class="card">
-        <h3>Nutella Overload</h3>
-        <p>Rich choco-loaded gourmet waffle</p>
-        <div class="price">₹270</div>
-      </div>
-      <div class="card">
-        <h3>Mango Cheesecake</h3>
-        <p>Cheesecake waff-wich</p>
-        <div class="price">₹160</div>
-      </div>
-      <div class="card">
-        <h3>Biscoff Cheesecake</h3>
-        <p>Cheesecake waff-wich</p>
-        <div class="price">₹190</div>
-      </div>
-      <div class="card">
-        <h3>Rocky Road</h3>
-        <p>Ice Cream Waff-wich</p>
-        <div class="price">₹200</div>
-      </div>
-      <div class="card">
-        <h3>Triple Cookie</h3>
-        <p>Ice cream waff-wich with cookie flavor</p>
-        <div class="price">₹210</div>
-      </div>
-      <div class="card">
-        <h3>KitKat Shake</h3>
-        <p>Signature beverage shake</p>
-        <div class="price">₹180</div>
-      </div>
-      <div class="card">
-        <h3>Nutella Shake</h3>
-        <p>Chocolate beverage</p>
-        <div class="price">₹170</div>
-      </div>
-      <div class="card">
-        <h3>Mini Waff-wich Box</h3>
-        <p>Assorted box of 4 / 6</p>
-        <div class="price">₹350 / ₹490</div>
-      </div>
-      <div class="card">
-        <h3>Mini Treats Combo</h3>
-        <p>Mini waff-wich box + chocolates</p>
-        <div class="price">₹585</div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <h2>Website Features</h2>
-    <div class="two-col">
-      <div class="card">
-        <h3>Customer Side</h3>
-        <ul class="feature-list">
-          <li>Browse food menu by category</li>
-          <li>Add items to cart</li>
-          <li>Place food orders online</li>
-          <li>Track order status live</li>
-          <li>Check payment status</li>
-          <li>View offers and value deals</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Admin Side</h3>
-        <ul class="feature-list">
-          <li>Admin login with username and password</li>
-          <li>Manage menu items and prices</li>
-          <li>See total users</li>
-          <li>Track active orders</li>
-          <li>Update order stages</li>
-          <li>Check paid and unpaid payments</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="admin">
-    <h2>Admin Login Demo</h2>
-    <div class="two-col">
-      <div class="admin-box">
-        <label for="adminUser">Admin Username</label>
-        <input id="adminUser" type="text" placeholder="Enter admin username" />
-        <label for="adminPass">Admin Password</label>
-        <input id="adminPass" type="password" placeholder="Enter admin password" />
-        <button class="btn" onclick="adminLogin()">Login</button>
-        <p id="loginMsg" class="small"></p>
-      </div>
-      <div class="admin-box">
-        <h3>Admin Dashboard</h3>
-        <div class="stats">
-          <div class="stat">Total Users<strong id="usersCount">128</strong></div>
-          <div class="stat">Total Orders<strong id="ordersCount">46</strong></div>
-          <div class="stat">Paid Orders<strong id="paidCount">39</strong></div>
-          <div class="stat">Pending Payments<strong id="pendingCount">7</strong></div>
+        <div class="hero-side panel">
+          <h3 style="margin:0; color:white;">Main Function Keys</h3>
+          <div class="mini-grid">
+            <div class="mini-card">Categories<strong>4</strong></div>
+            <div class="mini-card">Menu Items<strong id="heroMenuCount">0</strong></div>
+            <div class="mini-card">Active Orders<strong id="heroOrderCount">0</strong></div>
+            <div class="mini-card">Users<strong id="heroUsersCount">128</strong></div>
+          </div>
+          <p style="margin:0; line-height:1.7; color:#fde6d1;">
+            This page is built as a single HTML file with CSS and JavaScript, so you can run it directly or deploy it with Nginx, Docker, or Render.
+          </p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section" id="track">
-    <h2>Track Your Order</h2>
-    <div class="track-box">
-      <label for="orderId">Order Number</label>
-      <input id="orderId" type="text" placeholder="Enter your order ID, e.g. ORD1024" />
-      <button class="btn" onclick="trackOrder()">Track Order</button>
-      <p id="trackMsg" style="margin-top: 14px; font-weight: bold;"></p>
-      <div class="order-status">
-        <span class="pill">Order Received</span>
-        <span class="pill">Preparing</span>
-        <span class="pill">Out for Delivery</span>
-        <span class="pill">Delivered</span>
+    <section>
+      <div class="container">
+        <div class="section-title">
+          <h2>Customer Features</h2>
+          <p>Core functions for food browsing, ordering, tracking, and payments</p>
+        </div>
+        <div class="feature-grid">
+          <div class="feature-card panel"><h3>Browse food menu by category</h3><p class="muted">Filter waffles, cheesecake, shakes, and combos with a quick category selector.</p></div>
+          <div class="feature-card panel"><h3>Add items to cart</h3><p class="muted">Add products with quantity control and live price calculation.</p></div>
+          <div class="feature-card panel"><h3>Place food orders online</h3><p class="muted">Checkout form stores order details and creates an order number instantly.</p></div>
+          <div class="feature-card panel"><h3>Track order status live</h3><p class="muted">Search with the order ID and see current progress from received to delivered.</p></div>
+          <div class="feature-card panel"><h3>Check payment status</h3><p class="muted">View payment method and whether the order is paid or pending.</p></div>
+          <div class="feature-card panel"><h3>View offers and value deals</h3><p class="muted">Show combo packs and deal cards to increase orders.</p></div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section" id="payments">
-    <h2>Payment Status</h2>
-    <div class="two-col">
-      <div class="payment-box">
-        <h3>Customer Payment</h3>
-        <label for="paymentOrder">Order Number</label>
-        <input id="paymentOrder" type="text" placeholder="Enter order number" />
-        <label for="paymentMethod">Payment Method</label>
-        <select id="paymentMethod">
-          <option>UPI</option>
-          <option>Card</option>
-          <option>Cash on Delivery</option>
-          <option>Net Banking</option>
-        </select>
-        <button class="btn" onclick="checkPayment()">Check Payment</button>
-        <p id="paymentMsg" class="small"></p>
+    <section id="menu">
+      <div class="container">
+        <div class="section-title">
+          <h2>Browse Food Menu by Category</h2>
+          <p>Rebuilt menu with images, categories, and add-to-cart actions</p>
+        </div>
+
+        <div class="toolbar">
+          <div class="field">
+            <input id="searchInput" type="text" placeholder="Search waffle, shake, combo..." />
+          </div>
+          <div class="field">
+            <select id="categoryFilter">
+              <option value="all">All Categories</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="menuGrid" class="menu-grid"></div>
       </div>
-      <div class="payment-box">
-        <h3>Offers & Deals</h3>
-        <ul class="feature-list">
-          <li>Happy Hours: 2 waffles at ₹250</li>
-          <li>3 waffles at ₹350</li>
-          <li>4 waffles at ₹450</li>
-          <li>Treats for Two combo at ₹400</li>
-          <li>Best of the Best combo at ₹650</li>
-        </ul>
+    </section>
+
+    <section id="cart">
+      <div class="container split">
+        <div>
+          <div class="section-title">
+            <h2>Add Items to Cart</h2>
+            <p>Your selected menu items appear here</p>
+          </div>
+          <div id="cartList" class="cart-list"></div>
+        </div>
+
+        <div class="panel">
+          <h3>Place Food Orders Online</h3>
+          <div class="summary-grid">
+            <div class="stat"><small>Items</small><strong id="cartItemsCount">0</strong></div>
+            <div class="stat"><small>Total</small><strong id="cartTotal">₹0</strong></div>
+          </div>
+
+          <div style="height: 14px;"></div>
+
+          <div class="form-grid">
+            <div><input id="customerName" type="text" placeholder="Customer name" /></div>
+            <div><input id="customerPhone" type="text" placeholder="Phone number" /></div>
+            <div><input id="customerAddress" type="text" placeholder="Delivery address" /></div>
+            <div>
+              <select id="checkoutPaymentMethod">
+                <option value="UPI">UPI</option>
+                <option value="Card">Card</option>
+                <option value="Cash on Delivery">Cash on Delivery</option>
+                <option value="Net Banking">Net Banking</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="margin-top: 12px; display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn btn-primary" onclick="placeOrder()">Place Order</button>
+            <button class="btn btn-secondary" onclick="clearCart()">Clear Cart</button>
+          </div>
+
+          <div id="checkoutMessage" class="message"></div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <section id="orders">
+      <div class="container split">
+        <div class="panel">
+          <div class="section-title" style="margin-bottom: 12px;">
+            <h2>Track Order Status Live</h2>
+            <p>Search an existing order using order number</p>
+          </div>
+          <div class="form-grid">
+            <div><input id="trackOrderInput" type="text" placeholder="Enter order ID like ORD1001" /></div>
+            <div><button class="btn btn-primary" style="width:100%;" onclick="trackOrder()">Track Order</button></div>
+          </div>
+          <div id="trackMessage" class="message"></div>
+          <div id="trackResult"></div>
+        </div>
+
+        <div class="panel">
+          <div class="section-title" style="margin-bottom: 12px;">
+            <h2>Check Payment Status</h2>
+            <p>Find payment state by order number</p>
+          </div>
+          <div class="form-grid">
+            <div><input id="paymentOrderInput" type="text" placeholder="Enter order ID" /></div>
+            <div><button class="btn btn-primary" style="width:100%;" onclick="checkPaymentStatus()">Check Payment</button></div>
+          </div>
+          <div id="paymentMessage" class="message"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="offers">
+      <div class="container">
+        <div class="section-title">
+          <h2>Offers and Value Deals</h2>
+          <p>Promotional blocks for customer side</p>
+        </div>
+        <div id="offersGrid" class="offers-grid"></div>
+      </div>
+    </section>
+
+    <section id="admin">
+      <div class="container">
+        <div class="section-title">
+          <h2>Admin Side</h2>
+          <p>Admin login, menu control, user stats, order tracking, and payment checking</p>
+        </div>
+
+        <div class="split">
+          <div class="panel">
+            <h3>Admin Login with Username and Password</h3>
+            <div class="form-grid">
+              <div><input id="adminUsername" type="text" placeholder="Admin username" /></div>
+              <div><input id="adminPassword" type="password" placeholder="Admin password" /></div>
+            </div>
+            <div style="margin-top:12px;">
+              <button class="btn btn-primary" onclick="adminLogin()">Admin Login</button>
+            </div>
+            <div id="adminLoginMessage" class="message"></div>
+          </div>
+
+          <div class="panel">
+            <h3>Dashboard Summary</h3>
+            <div class="admin-stats">
+              <div class="stat"><small>See Total Users</small><strong id="totalUsersStat">128</strong></div>
+              <div class="stat"><small>Track Active Orders</small><strong id="activeOrdersStat">0</strong></div>
+              <div class="stat"><small>Paid Payments</small><strong id="paidOrdersStat">0</strong></div>
+              <div class="stat"><small>Unpaid Payments</small><strong id="unpaidOrdersStat">0</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="height:18px;"></div>
+
+        <div class="split">
+          <div class="panel">
+            <h3>Manage Menu Items and Prices</h3>
+            <div class="form-grid">
+              <div><input id="newItemName" type="text" placeholder="Item name" /></div>
+              <div><input id="newItemCategory" type="text" placeholder="Category" /></div>
+              <div><input id="newItemPrice" type="number" placeholder="Price" /></div>
+              <div><input id="newItemEmoji" type="text" placeholder="Emoji image e.g. 🧇" maxlength="2" /></div>
+            </div>
+            <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+              <button class="btn btn-primary" onclick="addMenuItem()">Add Menu Item</button>
+            </div>
+            <div id="menuAdminMessage" class="message"></div>
+            <div id="menuAdminList" class="menu-admin-list"></div>
+          </div>
+
+          <div class="panel">
+            <h3>Update Order Stages</h3>
+            <div class="form-grid">
+              <div><input id="adminOrderId" type="text" placeholder="Order ID" /></div>
+              <div>
+                <select id="adminOrderStage">
+                  <option>Order Received</option>
+                  <option>Preparing</option>
+                  <option>Out for Delivery</option>
+                  <option>Delivered</option>
+                </select>
+              </div>
+            </div>
+            <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+              <button class="btn btn-primary" onclick="updateOrderStage()">Update Order Stage</button>
+            </div>
+            <div id="adminOrderMessage" class="message"></div>
+
+            <h3 style="margin-top: 24px;">Check Paid and Unpaid Payments</h3>
+            <div id="orderList" class="order-list"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <footer>
-    <p>Waff-Wich Food Website Demo | Menu, Admin Login, Order Tracking & Payments</p>
+    <div class="container">
+      <div><strong>Waff-Wich Complete Food Ordering Website</strong></div>
+      <div class="footer-note">Customer menu + cart + order tracking + payment status + admin management in one file</div>
+    </div>
   </footer>
 
   <script>
-    function adminLogin() {
-      const user = document.getElementById('adminUser').value;
-      const pass = document.getElementById('adminPass').value;
-      const msg = document.getElementById('loginMsg');
+    const menuItems = [
+      { id: 1, name: 'Original Classics', category: 'Waffles', description: 'Honey Butter / Maple Butter signature waffle.', price: 100, image: '🧇' },
+      { id: 2, name: 'Almond Cocoa Butter', category: 'Waffles', description: 'Classic premium Waff-Wich with nutty cocoa flavor.', price: 180, image: '🍫' },
+      { id: 3, name: 'KitKat Affair', category: 'Gourmet', description: 'Crunchy chocolate gourmet waffle special.', price: 230, image: '🍪' },
+      { id: 4, name: 'Nutella Overload', category: 'Gourmet', description: 'Rich choco-loaded gourmet waffle.', price: 270, image: '🍫' },
+      { id: 5, name: 'Mango Cheesecake', category: 'Cheesecake', description: 'Fresh mango cheesecake Waff-Wich.', price: 160, image: '🥭' },
+      { id: 6, name: 'Biscoff Cheesecake', category: 'Cheesecake', description: 'Creamy cheesecake with Biscoff flavor.', price: 190, image: '🧁' },
+      { id: 7, name: 'Rocky Road', category: 'Ice Cream', description: 'Ice cream Waff-Wich with chocolate crunch.', price: 200, image: '🍨' },
+      { id: 8, name: 'Triple Cookie', category: 'Ice Cream', description: 'Cookie-loaded ice cream sandwich.', price: 210, image: '🍦' },
+      { id: 9, name: 'KitKat Shake', category: 'Shakes', description: 'Signature chocolate shake.', price: 180, image: '🥤' },
+      { id: 10, name: 'Nutella Shake', category: 'Shakes', description: 'Smooth Nutella beverage.', price: 170, image: '🥛' },
+      { id: 11, name: 'Mini Waff-Wich Box', category: 'Combos', description: 'Assorted box of mini treats.', price: 350, image: '📦' },
+      { id: 12, name: 'Mini Treats Combo', category: 'Combos', description: 'Mini Waff-Wich box with chocolates.', price: 585, image: '🎁' }
+    ];
 
-      if (user === 'admin' && pass === '1234') {
-        msg.textContent = 'Login successful. Admin dashboard is ready.';
-        msg.style.color = 'green';
-      } else {
-        msg.textContent = 'Invalid admin username or password.';
-        msg.style.color = 'red';
+    const offers = [
+      { title: 'Happy Hours', text: 'Get 2 waffles for ₹250 between 2 PM and 5 PM.' },
+      { title: 'Family Deal', text: '4 waffles combo at ₹450 for group orders.' },
+      { title: 'Treats for Two', text: 'Couple combo at ₹400 with shake upgrade.' },
+      { title: 'Best of the Best', text: 'Premium combo platter at ₹650.' }
+    ];
+
+    let cart = [];
+    let currentAdminLoggedIn = false;
+    let totalUsers = 128;
+    let orderCounter = 1001;
+
+    let orders = [
+      { id: 'ORD1000', customer: 'Demo User', phone: '9000000000', address: 'Demo Street', items: [{ name: 'Original Classics', qty: 2, price: 100 }], total: 200, paymentMethod: 'UPI', paymentStatus: 'Paid', status: 'Preparing' }
+    ];
+
+    function rupees(value) {
+      return `₹${value}`;
+    }
+
+    function setMessage(id, text, type) {
+      const el = document.getElementById(id);
+      el.textContent = text;
+      el.className = `message ${type}`;
+    }
+
+    function clearMessage(id) {
+      const el = document.getElementById(id);
+      el.textContent = '';
+      el.className = 'message';
+    }
+
+    function getCategories() {
+      return ['all', ...new Set(menuItems.map(item => item.category))];
+    }
+
+    function initCategoryFilter() {
+      const select = document.getElementById('categoryFilter');
+      select.innerHTML = getCategories().map(cat => `<option value="${cat}">${cat === 'all' ? 'All Categories' : cat}</option>`).join('');
+    }
+
+    function renderMenu() {
+      const grid = document.getElementById('menuGrid');
+      const search = document.getElementById('searchInput').value.trim().toLowerCase();
+      const category = document.getElementById('categoryFilter').value;
+
+      const filtered = menuItems.filter(item => {
+        const matchesSearch = item.name.toLowerCase().includes(search) || item.description.toLowerCase().includes(search) || item.category.toLowerCase().includes(search);
+        const matchesCategory = category === 'all' || item.category === category;
+        return matchesSearch && matchesCategory;
+      });
+
+      if (!filtered.length) {
+        grid.innerHTML = `<div class="panel"><h3>No items found</h3><p class="muted">Try another category or search term.</p></div>`;
+        return;
       }
+
+      grid.innerHTML = filtered.map(item => `
+        <article class="menu-card">
+          <div class="food-image">${item.image}</div>
+          <div class="menu-body">
+            <div class="category-pill">${item.category}</div>
+            <h3>${item.name}</h3>
+            <p class="muted">${item.description}</p>
+            <div class="price-row">
+              <div class="price">${rupees(item.price)}</div>
+              <button class="btn btn-primary" onclick="addToCart(${item.id})">Add to Cart</button>
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function addToCart(id) {
+      const item = menuItems.find(menuItem => menuItem.id === id);
+      const existing = cart.find(cartItem => cartItem.id === id);
+
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ ...item, qty: 1 });
+      }
+
+      renderCart();
+      setMessage('checkoutMessage', `${item.name} added to cart.`, 'success');
+    }
+
+    function changeQty(id, delta) {
+      const item = cart.find(cartItem => cartItem.id === id);
+      if (!item) return;
+      item.qty += delta;
+      if (item.qty <= 0) {
+        cart = cart.filter(cartItem => cartItem.id !== id);
+      }
+      renderCart();
+    }
+
+    function clearCart() {
+      cart = [];
+      renderCart();
+      setMessage('checkoutMessage', 'Cart cleared.', 'warn');
+    }
+
+    function renderCart() {
+      const cartList = document.getElementById('cartList');
+      const itemCount = cart.reduce((sum, item) => sum + item.qty, 0);
+      const total = cart.reduce((sum, item) => sum + (item.qty * item.price), 0);
+
+      document.getElementById('cartItemsCount').textContent = itemCount;
+      document.getElementById('cartTotal').textContent = rupees(total);
+
+      if (!cart.length) {
+        cartList.innerHTML = `<div class="panel"><h3>Your cart is empty</h3><p class="muted">Add menu items to start an order.</p></div>`;
+        return;
+      }
+
+      cartList.innerHTML = cart.map(item => `
+        <div class="cart-item">
+          <div class="row">
+            <div>
+              <h3 style="margin:0 0 6px;">${item.name}</h3>
+              <div class="muted">${item.category} • ${rupees(item.price)} each</div>
+            </div>
+            <div class="qty-controls">
+              <button class="qty-btn" onclick="changeQty(${item.id}, -1)">-</button>
+              <strong>${item.qty}</strong>
+              <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function placeOrder() {
+      const name = document.getElementById('customerName').value.trim();
+      const phone = document.getElementById('customerPhone').value.trim();
+      const address = document.getElementById('customerAddress').value.trim();
+      const paymentMethod = document.getElementById('checkoutPaymentMethod').value;
+
+      if (!cart.length) {
+        setMessage('checkoutMessage', 'Please add items to cart before placing an order.', 'error');
+        return;
+      }
+
+      if (!name || !phone || !address) {
+        setMessage('checkoutMessage', 'Please fill customer name, phone number, and address.', 'error');
+        return;
+      }
+
+      const paymentStatus = paymentMethod === 'Cash on Delivery' ? 'Unpaid' : 'Paid';
+      const orderId = `ORD${orderCounter++}`;
+      const total = cart.reduce((sum, item) => sum + item.qty * item.price, 0);
+
+      const order = {
+        id: orderId,
+        customer: name,
+        phone,
+        address,
+        items: cart.map(item => ({ name: item.name, qty: item.qty, price: item.price })),
+        total,
+        paymentMethod,
+        paymentStatus,
+        status: 'Order Received'
+      };
+
+      orders.unshift(order);
+      cart = [];
+      renderCart();
+      renderOrders();
+      refreshStats();
+
+      document.getElementById('customerName').value = '';
+      document.getElementById('customerPhone').value = '';
+      document.getElementById('customerAddress').value = '';
+
+      setMessage('checkoutMessage', `Order placed successfully. Your order ID is ${orderId}.`, 'success');
+    }
+
+    function getStatusSteps(activeStatus) {
+      const steps = ['Order Received', 'Preparing', 'Out for Delivery', 'Delivered'];
+      const activeIndex = steps.indexOf(activeStatus);
+      return `
+        <div class="status-track">
+          ${steps.map((step, index) => `<div class="status-step ${index <= activeIndex ? 'active' : ''}">${step}</div>`).join('')}
+        </div>
+      `;
     }
 
     function trackOrder() {
-      const orderId = document.getElementById('orderId').value.trim();
-      const msg = document.getElementById('trackMsg');
+      const orderId = document.getElementById('trackOrderInput').value.trim().toUpperCase();
+      const result = document.getElementById('trackResult');
 
       if (!orderId) {
-        msg.textContent = 'Please enter an order number.';
-        msg.style.color = 'red';
+        setMessage('trackMessage', 'Please enter an order ID.', 'error');
+        result.innerHTML = '';
         return;
       }
 
-      msg.textContent = 'Order ' + orderId + ' is currently: Preparing';
-      msg.style.color = '#92400e';
-    }
-
-    function checkPayment() {
-      const order = document.getElementById('paymentOrder').value.trim();
-      const method = document.getElementById('paymentMethod').value;
-      const msg = document.getElementById('paymentMsg');
-
+      const order = orders.find(item => item.id === orderId);
       if (!order) {
-        msg.textContent = 'Please enter order number to check payment status.';
-        msg.style.color = 'red';
+        setMessage('trackMessage', `Order ${orderId} was not found.`, 'error');
+        result.innerHTML = '';
         return;
       }
 
-      msg.textContent = 'Order ' + order + ' payment via ' + method + ' is marked as Paid.';
-      msg.style.color = 'green';
+      setMessage('trackMessage', `Order ${order.id} found successfully.`, 'success');
+      result.innerHTML = `
+        <div class="order-card" style="margin-top: 12px;">
+          <h3>${order.customer} • ${order.id}</h3>
+          <div class="muted">Total: ${rupees(order.total)} • Payment: ${order.paymentStatus} via ${order.paymentMethod}</div>
+          <div style="margin-top: 8px;" class="status-pill">Current Status: ${order.status}</div>
+          ${getStatusSteps(order.status)}
+        </div>
+      `;
     }
+
+    function checkPaymentStatus() {
+      const orderId = document.getElementById('paymentOrderInput').value.trim().toUpperCase();
+      if (!orderId) {
+        setMessage('paymentMessage', 'Please enter an order ID.', 'error');
+        return;
+      }
+
+      const order = orders.find(item => item.id === orderId);
+      if (!order) {
+        setMessage('paymentMessage', `Payment details not found for ${orderId}.`, 'error');
+        return;
+      }
+
+      const type = order.paymentStatus === 'Paid' ? 'success' : 'warn';
+      setMessage('paymentMessage', `Order ${order.id} payment is ${order.paymentStatus} via ${order.paymentMethod}.`, type);
+    }
+
+    function adminLogin() {
+      const username = document.getElementById('adminUsername').value.trim();
+      const password = document.getElementById('adminPassword').value.trim();
+
+      if (username === 'admin' && password === '1234') {
+        currentAdminLoggedIn = true;
+        setMessage('adminLoginMessage', 'Admin login successful. Dashboard access granted.', 'success');
+      } else {
+        currentAdminLoggedIn = false;
+        setMessage('adminLoginMessage', 'Invalid admin username or password.', 'error');
+      }
+    }
+
+    function addMenuItem() {
+      if (!currentAdminLoggedIn) {
+        setMessage('menuAdminMessage', 'Please login as admin first.', 'error');
+        return;
+      }
+
+      const name = document.getElementById('newItemName').value.trim();
+      const category = document.getElementById('newItemCategory').value.trim();
+      const price = Number(document.getElementById('newItemPrice').value);
+      const image = document.getElementById('newItemEmoji').value.trim() || '🧇';
+
+      if (!name || !category || !price) {
+        setMessage('menuAdminMessage', 'Please enter item name, category, and price.', 'error');
+        return;
+      }
+
+      const newItem = {
+        id: Date.now(),
+        name,
+        category,
+        description: 'New admin-added menu item.',
+        price,
+        image
+      };
+
+      menuItems.push(newItem);
+      initCategoryFilter();
+      renderMenu();
+      renderAdminMenu();
+      refreshStats();
+
+      document.getElementById('newItemName').value = '';
+      document.getElementById('newItemCategory').value = '';
+      document.getElementById('newItemPrice').value = '';
+      document.getElementById('newItemEmoji').value = '';
+
+      setMessage('menuAdminMessage', `${name} added successfully.`, 'success');
+    }
+
+    function deleteMenuItem(id) {
+      if (!currentAdminLoggedIn) {
+        setMessage('menuAdminMessage', 'Please login as admin first.', 'error');
+        return;
+      }
+
+      const index = menuItems.findIndex(item => item.id === id);
+      if (index === -1) return;
+      const removed = menuItems.splice(index, 1)[0];
+      initCategoryFilter();
+      renderMenu();
+      renderAdminMenu();
+      refreshStats();
+      setMessage('menuAdminMessage', `${removed.name} removed successfully.`, 'warn');
+    }
+
+    function updateOrderStage() {
+      if (!currentAdminLoggedIn) {
+        setMessage('adminOrderMessage', 'Please login as admin first.', 'error');
+        return;
+      }
+
+      const orderId = document.getElementById('adminOrderId').value.trim().toUpperCase();
+      const stage = document.getElementById('adminOrderStage').value;
+
+      if (!orderId) {
+        setMessage('adminOrderMessage', 'Please enter an order ID.', 'error');
+        return;
+      }
+
+      const order = orders.find(item => item.id === orderId);
+      if (!order) {
+        setMessage('adminOrderMessage', `Order ${orderId} not found.`, 'error');
+        return;
+      }
+
+      order.status = stage;
+      renderOrders();
+      refreshStats();
+      setMessage('adminOrderMessage', `Order ${order.id} updated to ${stage}.`, 'success');
+    }
+
+    function renderOrders() {
+      const orderList = document.getElementById('orderList');
+      if (!orders.length) {
+        orderList.innerHTML = `<div class="panel"><p class="muted">No orders yet.</p></div>`;
+        return;
+      }
+
+      orderList.innerHTML = orders.map(order => `
+        <div class="order-card">
+          <div class="row">
+            <div>
+              <h3>${order.id}</h3>
+              <div class="muted">${order.customer} • ${order.items.reduce((sum, item) => sum + item.qty, 0)} item(s) • ${rupees(order.total)}</div>
+            </div>
+            <div class="status-pill">${order.paymentStatus}</div>
+          </div>
+          <div style="margin-top:8px;" class="muted">Status: <strong>${order.status}</strong> • Payment Method: ${order.paymentMethod}</div>
+        </div>
+      `).join('');
+    }
+
+    function renderAdminMenu() {
+      const list = document.getElementById('menuAdminList');
+      list.innerHTML = menuItems.map(item => `
+        <div class="menu-admin-item row">
+          <div>
+            <strong>${item.name}</strong>
+            <div class="muted">${item.category} • ${rupees(item.price)}</div>
+          </div>
+          <button class="btn btn-secondary" onclick="deleteMenuItem(${item.id})">Delete</button>
+        </div>
+      `).join('');
+    }
+
+    function renderOffers() {
+      const grid = document.getElementById('offersGrid');
+      grid.innerHTML = offers.map(offer => `
+        <div class="offer-card">
+          <div class="category-pill">Value Deal</div>
+          <h3>${offer.title}</h3>
+          <p class="muted">${offer.text}</p>
+        </div>
+      `).join('');
+    }
+
+    function refreshStats() {
+      const paid = orders.filter(order => order.paymentStatus === 'Paid').length;
+      const unpaid = orders.filter(order => order.paymentStatus !== 'Paid').length;
+      const active = orders.filter(order => order.status !== 'Delivered').length;
+
+      document.getElementById('heroMenuCount').textContent = menuItems.length;
+      document.getElementById('heroOrderCount').textContent = active;
+      document.getElementById('heroUsersCount').textContent = totalUsers;
+
+      document.getElementById('totalUsersStat').textContent = totalUsers;
+      document.getElementById('activeOrdersStat').textContent = active;
+      document.getElementById('paidOrdersStat').textContent = paid;
+      document.getElementById('unpaidOrdersStat').textContent = unpaid;
+    }
+
+    document.getElementById('searchInput').addEventListener('input', renderMenu);
+    document.getElementById('categoryFilter').addEventListener('change', renderMenu);
+
+    initCategoryFilter();
+    renderMenu();
+    renderCart();
+    renderOrders();
+    renderAdminMenu();
+    renderOffers();
+    refreshStats();
   </script>
 </body>
 </html>

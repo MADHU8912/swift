@@ -1,0 +1,12 @@
+{
+  "name": "waff-wich",
+  "version": "1.0.0",
+  "description": "Waff-Wich food ordering website",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
