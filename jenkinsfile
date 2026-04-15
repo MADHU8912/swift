@@ -6,12 +6,6 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'main', url: 'https://github.com/MADHU8912/swift.git'
-            }
-        }
-
         stage('Install Dependencies') {
             steps {
                 bat 'npm install'
