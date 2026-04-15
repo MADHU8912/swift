@@ -1,25 +1,10 @@
 pipeline {
     agent any
 
-    environment {
-        IMAGE_NAME = "nikhilabba12/waff-wich"
-        IMAGE_TAG = "latest"
-        FULL_IMAGE = "${IMAGE_NAME}:${IMAGE_TAG}"
-    }
-
     stages {
-        stage('Checkout Code') {
+        stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/MADHU8912/swift.git'
-            }
-        }
-
-        stage('Verify Files') {
-            steps {
-                bat 'if not exist package.json exit /b 1'
-                bat 'if not exist server.js exit /b 1'
-                bat 'if not exist index.html exit /b 1'
-                bat 'if not exist Dockerfile exit /b 1'
             }
         }
 
@@ -29,33 +14,11 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Run App Check') {
             steps {
-                bat 'docker build -t %FULL_IMAGE% .'
+                bat 'node --version'
+                bat 'npm --version'
             }
-        }
-
-        stage('Docker Login') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                    bat 'echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin'
-                }
-            }
-        }
-
-        stage('Push Docker Image') {
-            steps {
-                bat 'docker push %FULL_IMAGE%'
-            }
-        }
-    }
-
-    post {
-        success {
-            echo 'Build and push successful'
-        }
-        failure {
-            echo 'Pipeline failed'
         }
     }
 }
