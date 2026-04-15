@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  waff-wich:
+    build: .
+    container_name: waff-wich-container
+    ports:
+      - "8080:80"
+    restart: unless-stopped
