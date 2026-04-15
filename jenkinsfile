@@ -14,10 +14,9 @@ pipeline {
             }
         }
 
-        stage('Run App Check') {
+        stage('Build Docker Image') {
             steps {
-                bat 'node --version'
-                bat 'npm --version'
+                bat 'docker build -t waff-wich:latest .'
             }
         }
     }
